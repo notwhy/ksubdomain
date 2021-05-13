@@ -1,4 +1,5 @@
 python爆破域名没有ksubdomain速度快,简单改了下代码使其支持基于ip cname爆破。
+
 1.基于ip
 ```
 ./ksubdomain -fip 121.4.186.15 -d sdo.com -o 1.txt
@@ -13,5 +14,6 @@ python爆破域名没有ksubdomain速度快,简单改了下代码使其支持基
 * 部分多级域名泛解析
 * 部分一级域名泛解析,但是二级的该域名查不到,例如1.wildcard.com指向泛解析 但是2.1.wildcard.com是真实域名(结合api等找寻域名)
 * 之前跑过一些黑名单的ip或者域名,有需要自取black_ip_cname.py
+* 参考 https://github.com/knownsec/ksubdomain/issues/20
 ......
 ```
