@@ -11,6 +11,8 @@ type Options struct {
 	Rate            int64
 	Domain          []string
 	FileName        string
+	Fcname        string
+	Fip        string
 	Resolvers       []string
 	Output          string
 	OutputCSV       bool
@@ -30,6 +32,8 @@ type Options struct {
 	SubNameFileName string // 三级域名字典文件
 	FilterWildCard  bool   // 过滤泛解析结果
 	CheckOrigin     bool   // 会从返回包检查DNS是否为设定的，防止其他包的干扰
+	CheckCname     bool   // 检查cname
+	CheckIp     bool   // 检查ip
 }
 
 // ParseOptions parses the command line flags provided by a user
@@ -38,6 +42,8 @@ func ParseOptions() *Options {
 
 	bandwith := flag.String("b", "1M", "宽带的下行速度，可以5M,5K,5G")
 	domain := flag.String("d", "", "爆破域名")
+	flag.StringVar(&options.Fcname, "fc", "", "泛解析cname 黑名单")
+	flag.StringVar(&options.Fip, "fip", "", "泛解析ip 黑名单")
 	domain_list := flag.String("dl", "", "从文件中读取爆破域名")
 	flag.StringVar(&options.FileName, "f", "", "字典路径,-d下文件为子域名字典，-verify下文件为需要验证的域名")
 	flag.StringVar(&options.SubNameFileName, "sf", "", "三级域名爆破字典文件(默认内置)")
@@ -58,6 +64,8 @@ func ParseOptions() *Options {
 	flag.BoolVar(&options.Summary, "summary", false, "在扫描完毕后整理域名归属asn以及IP段")
 	flag.BoolVar(&options.CheckOrigin, "check-origin", false, "会从返回包检查DNS是否为设定的，防止其他包的干扰")
 	flag.Parse()
+	options.CheckCname = false
+	options.CheckIp = false
 	options.Stdin = hasStdin()
 	if options.Silent {
 		gologger.MaxLevel = gologger.Silent
@@ -114,6 +122,15 @@ func ParseOptions() *Options {
 		flag.Usage()
 		os.Exit(0)
 	}
+
+	if options.Fcname != ""{
+		options.CheckCname = true
+	}
+
+	if options.Fip != ""{
+		options.CheckIp = true
+	}
+
 	if len(options.Domain) > 0 && options.Verify {
 		gologger.Fatalf("-d 与 -verify参数不可以同时出现!")
 	}

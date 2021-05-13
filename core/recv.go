@@ -11,7 +11,28 @@ import (
 	"strings"
 	"sync/atomic"
 	"time"
+	"regexp"
 )
+
+var ipRegex = regexp.MustCompile("((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))")
+var cnameRegex = regexp.MustCompile("CNAME (.*?) ")
+
+
+func getIp(ip string) string {
+	groups := ipRegex.FindAllString(ip, -1)
+	if len(groups) > 0 {
+		ip = groups[0]
+	}
+	return ip
+}
+
+func getCname(cname string) string {
+	groups := cnameRegex.FindAllString(cname, -1)
+	if len(groups) > 0 {
+		cname = groups[0]
+	}
+	return cname
+}
 
 func Recv(device string, options *Options, flagID uint16, retryChan chan RetryStruct) {
 	var (
@@ -52,7 +73,6 @@ func Recv(device string, options *Options, flagID uint16, retryChan chan RetrySt
 		}
 		subNextData = rs
 	}
-
 	parser := gopacket.NewDecodingLayerParser(
 		layers.LayerTypeEthernet, &eth, &ipv4, &ipv6, &udp, &dns)
 	var isWrite bool = false
@@ -111,8 +131,8 @@ func Recv(device string, options *Options, flagID uint16, retryChan chan RetrySt
 					LocalStack.Push(uint32(index))
 				}
 			}
+			// return
 			if dns.ANCount > 0 {
-				atomic.AddUint64(&SuccessIndex, 1)
 				if len(dns.Questions) == 0 {
 					continue
 				}
@@ -129,7 +149,33 @@ func Recv(device string, options *Options, flagID uint16, retryChan chan RetrySt
 						msg += " => "
 					}
 				}
+
 				msg = strings.Trim(msg, " => ")
+				if options.CheckCname{
+					var cname string = ""
+					cname = strings.Trim(getCname(msg),"CNAME ")
+					if strings.Contains(options.Fcname,cname){
+						//  处理cname 黑名单
+						gologger.Silentf("\n%s black cname found: %s", msg ,cname)
+						// gologger.Silentf("%s\n", msg)
+						continue
+					}
+				}
+
+				if options.CheckIp{
+					var ip string = ""
+					ip = getIp(msg)
+					if strings.Contains(options.Fip,ip){
+						//  处理cname 黑名单
+						gologger.Silentf("\n%s black ip found: %s", msg ,ip)
+						// gologger.Silentf("%s\n", msg)
+						continue
+					}
+				}
+
+				// gologger.Silentf("\r2222222 %s\n", msg)
+				atomic.AddUint64(&SuccessIndex, 1)
+
 				ff := windowWith - len(msg) - 1
 				if !options.Silent {
 					if windowWith > 0 && ff > 0 {
@@ -143,6 +189,7 @@ func Recv(device string, options *Options, flagID uint16, retryChan chan RetrySt
 				if isSummary {
 					AsnResults = append(AsnResults, data)
 				}
+
 				if isWrite {
 					w := bufio.NewWriter(foutput)
 					_, err = w.WriteString(msg + "\n")
