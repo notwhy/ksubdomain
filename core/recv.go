@@ -156,7 +156,7 @@ func Recv(device string, options *Options, flagID uint16, retryChan chan RetrySt
 					cname = strings.Trim(getCname(msg),"CNAME ")
 					if strings.Contains(options.Fcname,cname){
 						//  处理cname 黑名单
-						gologger.Silentf("\n%s black cname found: %s", msg ,cname)
+						// gologger.Silentf("\n%s black cname found: %s", msg ,cname)
 						// gologger.Silentf("%s\n", msg)
 						continue
 					}
@@ -167,7 +167,7 @@ func Recv(device string, options *Options, flagID uint16, retryChan chan RetrySt
 					ip = getIp(msg)
 					if strings.Contains(options.Fip,ip){
 						//  处理cname 黑名单
-						gologger.Silentf("\n%s black ip found: %s", msg ,ip)
+						// gologger.Silentf("\n%s black ip found: %s", msg ,ip)
 						// gologger.Silentf("%s\n", msg)
 						continue
 					}

@@ -123,6 +123,7 @@ func Start(options *Options) {
 			}
 		}
 		f = strings.NewReader(strings.Join(domains, "\n"))
+		gologger.Infof("%s\n",f)
 		gologger.Infof("API模式获取完毕,验证中..\n")
 	}
 

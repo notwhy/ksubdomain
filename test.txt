@@ -1,0 +1,21 @@
+pen-data.buckets.hongen.com => CNAME iduz7h3.qiniudns.com => CNAME daliupnew.china.qiniudns.com => CNAME tinychinacdndownload.qiniu.com.w.kunlunea.com => 219.147.157.65 => 219.147.157.66 => 219.147.157.67 => 219.147.157.68 => 219.147.157.69 => 219.147.157.70 => 219.147.157.71 => 219.147.157.72 => 219.147.157.73 => 219.147.157.104 => 219.147.157.59 => 219.147.157.60 => 219.147.157.61 => 219.147.157.62 => 219.147.157.63 => 219.147.157.64
+download.device.hongen.com => CNAME download-device-hongen-com-idvfdnh.qiniudns.com => CNAME daliupnew.china.qiniudns.com => CNAME tinychinacdndownload.qiniu.com.w.kunlunea.com => 219.147.157.73 => 219.147.157.76 => 219.147.157.80 => 219.147.157.70 => 219.147.157.77 => 219.147.157.74 => 219.147.157.67 => 219.147.157.68 => 219.147.157.71 => 219.147.157.78 => 219.147.157.66 => 219.147.157.69 => 219.147.157.75 => 219.147.157.72 => 219.147.157.81 => 219.147.157.79
+ek.hongen.com => 182.92.235.72
+static.hongen.com => CNAME static.hongen.com.cdn.dnsv1.com => CNAME b15tyzi4.sched.sma.tdnsv5.com => 103.18.208.222
+fastcms.hongen.com => 39.97.250.187
+image.fastcms.hongen.com => CNAME image-fastcms-hongen-com-idve3z1.qiniudns.com => CNAME tiny45.china.line.qiniudns.com => CNAME tinychinacdnweb.qiniu.com.w.kunlunno.com => 219.147.157.102 => 219.147.157.76 => 219.147.157.64 => 219.147.157.79 => 219.147.157.67 => 219.147.157.69 => 219.147.157.62 => 219.147.157.103 => 219.147.157.59 => 219.147.157.100
+courses.hongen.com => 101.200.129.49
+resourceshare.hongen.com => CNAME resourceshare.hongen.com.cdn.dnsv1.com => CNAME 22eviulv.p23.tc.cdntip.com => 106.117.252.214 => 106.117.254.233
+assets.hongen.com => CNAME iduy64q.qiniudns.com => CNAME dt003.china.line.qiniudns.com => CNAME tinychinacdnweb.qiniu.com.w.kunlunno.com => 219.147.157.70 => 219.147.157.103 => 219.147.157.100 => 219.147.157.74 => 219.147.157.73 => 219.147.157.75 => 219.147.157.102 => 219.147.157.71 => 219.147.157.62 => 219.147.157.97
+api.fastcms.hongen.com => 39.97.226.17
+wp-uploads.buckets.hongen.com => CNAME iduy727.qiniudns.com => CNAME valiupnew.china.qiniudns.com => CNAME tinychinacdnvod.qiniu.com.w.kunlunea.com => 219.147.157.67 => 219.147.157.68 => 219.147.157.69 => 219.147.157.70 => 219.147.157.71 => 219.147.157.72 => 219.147.157.73 => 219.147.157.74 => 219.147.157.59 => 219.147.157.60 => 219.147.157.61 => 219.147.157.62 => 219.147.157.63 => 219.147.157.64 => 219.147.157.65 => 219.147.157.66
+demo.ketang.hongen.com => 182.92.235.72
+device.test.hongen.com => 123.56.11.70
+jqy.hongen.com => 118.190.160.80
+smtp.hongen.com => CNAME smtp.mxhichina.com => 42.120.226.4 => 42.120.219.29
+zentao.hongen.com => 123.56.11.70
+imap.hongen.com => CNAME imap.mxhichina.com => 106.11.252.137 => 106.11.252.136 => 42.120.214.12 => 106.11.252.131 => 106.11.252.74 => 106.11.252.138
+pop3.hongen.com => CNAME pop3.mxhichina.com => 42.120.151.2 => 42.120.149.7 => 42.120.219.25 => 42.120.226.2 => 42.120.214.11 => 140.205.28.135
+vault.hongen.com => CNAME iduwcnj.qiniudns.com => CNAME daliupnew.china.qiniudns.com => CNAME tinychinacdndownload.qiniu.com.w.kunlunea.com => 219.147.157.98 => 219.147.157.69 => 219.147.157.70 => 219.147.157.71 => 219.147.157.72 => 219.147.157.73 => 219.147.157.74 => 219.147.157.75 => 219.147.157.76 => 219.147.157.77 => 219.147.157.78 => 219.147.157.79 => 219.147.157.80 => 219.147.157.81 => 219.147.157.82 => 219.147.157.97
+djs.hongen.com => CNAME iduzdyl.qiniudns.com => CNAME daliupnew.china.qiniudns.com => CNAME tinychinacdndownload.qiniu.com.w.kunlunea.com => 219.147.157.59 => 219.147.157.60 => 219.147.157.61 => 219.147.157.62 => 219.147.157.63 => 219.147.157.64 => 219.147.157.65 => 219.147.157.66 => 219.147.157.67 => 219.147.157.68 => 219.147.157.69 => 219.147.157.70 => 219.147.157.71 => 219.147.157.72 => 219.147.157.73 => 219.147.157.104
+magic.hongen.com => 101.200.211.167
