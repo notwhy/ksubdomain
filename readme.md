@@ -17,29 +17,3 @@ python爆破域名没有ksubdomain速度快,简单改了下代码使其支持基
 * 参考 https://github.com/knownsec/ksubdomain/issues/20
 ......
 ```
-
-git commit -m  'update'
-
-
-~/python/scanner3/thirdtools/scan_linux  --max-retries=0  -i en0 -p 22 --probe-file ~/python/scanner3/thirdtools/probe.db --target-file /tmp/portscan_input_2021-05-13_ebbceoph.txt -r 6666 --output-filename-service-scan=/tmp/11.txt  --output-filename-port-scan /tmp/22.txt
-
-
-
-def api(request, logtype, udomain, hashstr,del):
-    apistatus = False
-    host = "%s.%s." % (hashstr, udomain)
-    if logtype == 'dns':
-        res = DNSLog.objects.filter(host__contains=host)
-        if del:
-          res.delete()
-        if len(res) > 0:
-            apistatus = True
-    elif logtype == 'web':
-        res = WebLog.objects.filter(path__contains=host)
-        if del:
-            res.delete()
-        if len(res) > 0:
-            apistatus = True
-    else:
-        return HttpResponseRedirect('/')
-    return render(request, 'api.html', {'apistatus': apistatus})
