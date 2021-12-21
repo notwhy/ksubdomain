@@ -7,11 +7,11 @@ import (
 	"github.com/google/gopacket/pcap"
 	"ksubdomain/gologger"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"sync/atomic"
 	"time"
-	"regexp"
 )
 
 var ipRegex = regexp.MustCompile("((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))")
@@ -26,6 +26,14 @@ func getIp(ip string) string {
 	return ip
 }
 
+func getAllIp(ip string) []string{
+	var groups = ipRegex.FindAllString(ip, -1)
+	return groups
+	//if len(groups) > 0 {
+	//	ip = groups[0]
+	//}
+	//return ip
+}
 func getCname(cname string) string {
 	groups := cnameRegex.FindAllString(cname, -1)
 	if len(groups) > 0 {
@@ -153,24 +161,63 @@ func Recv(device string, options *Options, flagID uint16, retryChan chan RetrySt
 				msg = strings.Trim(msg, " => ")
 				if options.CheckCname{
 					var cname string = ""
-					cname = strings.Trim(getCname(msg),"CNAME ")
-					if strings.Contains(options.Fcname,cname){
-						//  处理cname 黑名单
-						// gologger.Silentf("\n%s black cname found: %s", msg ,cname)
-						// gologger.Silentf("%s\n", msg)
-						continue
-					}
-				}
+					//cname = strings.Trim(getCname(msg),"CNAME ")
 
-				if options.CheckIp{
-					var ip string = ""
-					ip = getIp(msg)
-					if strings.Contains(options.Fip,ip){
-						//  处理cname 黑名单
-						// gologger.Silentf("\n%s black ip found: %s", msg ,ip)
-						// gologger.Silentf("%s\n", msg)
+					var cnameblack int8 = 0
+					for i:=0;i<len(cnameRegex.FindAllString(cname, -1));i++{
+						if strings.Contains(options.Fcname,cnameRegex.FindAllString(msg, -1)[i]){
+							//gologger.Infof("\nfip %s\n", options.Fip)
+							//gologger.Infof("\ncurrent ip %s\n", ipRegex.FindAllString(msg, -1)[i])
+							//gologger.Infof("\n检测泛解析msg %s\n", msg)
+							//gologger.Infof("\n检测泛解析ip %s\n", ipRegex.FindAllString(msg, -1))
+							cnameblack = 1
+							break
+						}
+					}
+					if cnameblack == 1{
 						continue
 					}
+
+
+					//if strings.Contains(options.Fcname,cname){
+					//	//  处理cname 黑名单
+					//	gologger.Silentf("\n%s black cname found: %s", msg ,cname)
+					//	gologger.Silentf("%s\n", msg)
+					//	continue
+					//}
+				}
+				//return
+				if options.CheckIp{
+
+					//var ip string = ""
+					//ip = getIp(msg)
+					//var array [...] string := ipRegex.FindAllString(msg, -1)
+					var ipblack int8 = 0
+					for i:=0;i<len(ipRegex.FindAllString(msg, -1));i++{
+						if strings.Contains(options.Fip,ipRegex.FindAllString(msg, -1)[i]){
+							//gologger.Infof("\nfip %s\n", options.Fip)
+							//gologger.Infof("\ncurrent ip %s\n", ipRegex.FindAllString(msg, -1)[i])
+							//gologger.Infof("\n检测泛解析msg %s\n", msg)
+							//gologger.Infof("\n检测泛解析ip %s\n", ipRegex.FindAllString(msg, -1))
+							ipblack = 1
+							break
+						}
+					}
+					if ipblack == 1{
+						continue
+					}
+
+
+					//continue
+					//var ip string = ""
+					//gologger.Infof("\n检测泛解析成功 %s\n", strings.Contains(options.Fip,ip))
+					//
+					//if strings.Contains(options.Fip,ip){
+					//	//  处理cname 黑名单
+					//	gologger.Infof("\n%s black ip found: %s", msg ,ip)
+					//	gologger.Infof("%s\n", msg)
+					//	continue
+					//}
 				}
 
 				// gologger.Silentf("\r2222222 %s\n", msg)
